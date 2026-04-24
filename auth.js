@@ -1,4 +1,4 @@
-const WEB_APP_URL = "YOUR_DEPLOYED_SCRIPT_URL_HERE";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz91zjIKHj6GwGoOYGQ5MpLFLY6_4wocXTQLByRlTBsNgLnMmS1jiJzB8HsnBVCWUlCvw/exec";
 
 async function handleLogin(event) {
     event.preventDefault();

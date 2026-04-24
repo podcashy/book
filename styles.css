@@ -5,11 +5,14 @@
     --text-dark: #2c3e50;
     --bg-light: #f4f7f6;
     --white: #ffffff;
+    --danger-red: #c0392b;
 }
 
+/* Global Reset */
 body {
     margin: 0;
-    font-family: 'Segoe UI', Roboto, sans-serif;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-light);
     color: var(--text-dark);
     display: flex;
@@ -17,18 +20,105 @@ body {
     align-items: center;
 }
 
-/* Container for all book parts */
-.book-container {
+/* STICKY TOP NAVIGATION (nav.js) */
+.book-nav {
+    width: 100%;
+    background: var(--primary-blue);
+    color: white;
+    padding: 12px 0;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.nav-brand {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    color: var(--accent-gold);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 0 10px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    font-weight: bold;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.nav-links a.active {
+    background: var(--accent-gold);
+    color: var(--primary-blue);
+    border-color: var(--accent-gold);
+}
+
+.nav-links a:hover {
+    background: var(--accent-gold);
+    color: var(--primary-blue);
+}
+
+.logout-link {
+    width: auto !important;
+    padding: 0 15px !important;
+    border-radius: 20px !important;
+    background: var(--danger-red) !important;
+    font-size: 0.75rem !important;
+}
+
+/* MAIN CONTENT CONTAINER */
+.container, .book-container {
     width: 100%;
     max-width: 800px;
     background: var(--white);
     min-height: 100vh;
-    padding: 40px 20px;
+    padding: 40px 30px;
     box-sizing: border-box;
     box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    margin-top: 0;
 }
 
-/* Navigation Buttons */
+/* SECTION SPACING */
+.section {
+    margin-bottom: 40px;
+}
+
+/* TYPOGRAPHY */
+h1, h2 {
+    color: var(--primary-blue);
+    text-align: center;
+}
+
+p {
+    line-height: 1.8;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.center {
+    text-align: center;
+}
+
+/* BOTTOM NAVIGATION BUTTONS */
 .nav-controls {
     display: flex;
     justify-content: space-between;
@@ -44,6 +134,8 @@ body {
     font-weight: bold;
     transition: 0.3s;
     cursor: pointer;
+    border: none;
+    font-family: inherit;
 }
 
 .btn-next {
@@ -56,45 +148,64 @@ body {
     color: var(--text-dark);
 }
 
-/* Login Modal/Overlay */
-#login-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--primary-blue);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
+/* LOGIN PAGE STYLES (index.html) */
 .login-card {
     background: white;
-    padding: 30px;
-    border-radius: 12px;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     width: 90%;
-    max-width: 400px;
+    max-width: 380px;
     text-align: center;
+    margin-top: 10vh;
 }
 
 input {
     width: 100%;
-    padding: 12px;
-    margin: 10px 0;
+    padding: 14px;
+    margin: 12px 0;
     border: 1px solid #ddd;
-    border-radius: 6px;
+    border-radius: 8px;
     box-sizing: border-box;
+    font-size: 1rem;
 }
 
 .login-btn {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     background: var(--accent-gold);
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.login-btn:hover {
+    background: #b8860b;
+}
+
+#message {
+    color: var(--danger-red);
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 600px) {
+    .container, .book-container {
+        padding: 25px 20px;
+    }
+    
+    .nav-links a {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+
+    p {
+        text-align: left;
+    }
 }

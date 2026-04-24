@@ -86,6 +86,11 @@
             p { font-size: 1.05rem; text-align: left; }
         }
     </style>
+        <script>
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = "index.html";
+        }
+    </script>
 </head>
 <body>
 

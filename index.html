@@ -2,85 +2,142 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Login - Masomo Testimony</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
+        :root {
+            --royal-blue: #1a3a5f;
+            --deep-gold: #d4af37;
+            --dark-navy: #0d1b2a;
+        }
+
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #1a3a5f 0%, #2c3e50 100%);
+            background: linear-gradient(135deg, var(--royal-blue) 0%, var(--dark-navy) 100%);
             margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: 20px;
+            box-sizing: border-box;
         }
+
         .login-card {
             background: white;
-            padding: 40px;
+            padding: 40px 25px;
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             width: 100%;
             max-width: 380px;
             text-align: center;
+            border-top: 6px solid var(--deep-gold);
+            position: relative;
         }
+
         .login-card h2 {
-            color: #1a3a5f;
-            margin-bottom: 10px;
+            color: var(--royal-blue);
+            margin: 0 0 10px 0;
+            font-size: 1.8rem;
+            letter-spacing: -0.5px;
         }
+
         .login-card p {
             color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 25px;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+            line-height: 1.5;
         }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
         input {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            padding: 16px;
+            margin: 8px 0;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
             box-sizing: border-box;
-            font-size: 1rem;
+            /* 16px font prevents auto-zoom on mobile Safari */
+            font-size: 16px; 
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+            outline: none;
         }
+
+        input:focus {
+            border-color: var(--deep-gold);
+            background-color: #fff;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+        }
+
         .login-btn {
             width: 100%;
-            padding: 14px;
-            background-color: #d4af37;
-            color: white;
+            padding: 18px;
+            background-color: var(--deep-gold);
+            color: var(--royal-blue);
             border: none;
-            border-radius: 8px;
-            font-weight: bold;
+            border-radius: 10px;
+            font-weight: 800;
             font-size: 1rem;
             cursor: pointer;
             margin-top: 15px;
-            transition: background 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
         }
-        .login-btn:hover {
+
+        .login-btn:active {
+            transform: scale(0.96);
             background-color: #b8860b;
         }
+
+        .login-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
         #message {
-            margin-top: 15px;
+            margin-top: 20px;
             font-size: 0.9rem;
+            font-weight: 600;
             color: #c0392b;
+            min-height: 1.2rem;
+        }
+
+        .footer-brand {
+            margin-top: 30px;
+            font-size: 0.7rem;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
     </style>
 </head>
 <body>
 
 <div class="login-card">
-    <h2>Masomo Testimony</h2>
-    <p>Please enter your credentials to continue reading.</p>
+    <h2>Change is a Possibility - Book</h2>
+    <p>Enter your credentials to unlock <br><strong>The Manual for Victory</strong></p>
     
     <form id="loginForm">
-        <input type="number" id="nationalId" placeholder="National ID" required>
+        <input type="number" id="nationalId" placeholder="Masomo ID" required pattern="\d*">
         <input type="password" id="password" placeholder="Password" required>
         <button type="submit" class="login-btn" id="submitBtn">UNLOCK BOOK</button>
     </form>
     
     <div id="message"></div>
+    
+    <div class="footer-brand">Sisi Tuko Digital</div>
 </div>
 
 <script>
-    // Replace this with your actual Google Apps Script Web App URL
+    // Ensure this URL is correct for your Google Apps Script
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz91zjIKHj6GwGoOYGQ5MpLFLY6_4wocXTQLByRlTBsNgLnMmS1jiJzB8HsnBVCWUlCvw/exec";
 
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -91,32 +148,39 @@
         const nationalId = document.getElementById('nationalId').value;
         const password = document.getElementById('password').value;
 
+        // Visual feedback
         btn.disabled = true;
-        btn.innerText = "Verifying...";
+        btn.innerText = "VERIFYING...";
         msg.innerText = "";
 
         try {
             const response = await fetch(SCRIPT_URL, {
                 method: "POST",
+                mode: "no-cors", // Use this if you face CORS issues, but "cors" is preferred for JSON response
                 body: JSON.stringify({ nationalId, password })
             });
             
-            const result = await response.json();
+            /* Note: 'no-cors' will prevent reading the JSON. 
+               If your script handles CORS correctly, use the following:
+            */
+            const corsResponse = await fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify({ nationalId, password })
+            });
+            const result = await corsResponse.json();
 
             if (result.success) {
-                // Store session info
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('userName', result.name);
-                
-                // Redirect to Part 1
                 window.location.href = "part1.html";
             } else {
-                msg.innerText = "Invalid ID or Password. Please try again.";
+                msg.innerText = "Invalid credentials. Please try again.";
                 btn.disabled = false;
                 btn.innerText = "UNLOCK BOOK";
             }
         } catch (error) {
-            msg.innerText = "Connection error. Check your internet.";
+            console.error(error);
+            msg.innerText = "Connection error. Please try again.";
             btn.disabled = false;
             btn.innerText = "UNLOCK BOOK";
         }

@@ -19,61 +19,63 @@
             background: linear-gradient(135deg, var(--royal-blue) 0%, var(--dark-navy) 100%);
             margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            padding: 20px;
+            padding: 16px;
             box-sizing: border-box;
+            -webkit-text-size-adjust: 100%;
         }
 
         .login-card {
             background: white;
-            padding: 40px 25px;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            padding: 30px 20px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
             width: 100%;
             max-width: 380px;
             text-align: center;
             border-top: 6px solid var(--deep-gold);
             position: relative;
+            box-sizing: border-box;
         }
 
         .login-card h2 {
             color: var(--royal-blue);
-            margin: 0 0 10px 0;
-            font-size: 1.8rem;
+            margin: 0 0 8px 0;
+            font-size: 1.6rem;
             letter-spacing: -0.5px;
         }
 
         .login-card p {
             color: #666;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            line-height: 1.4;
         }
 
         .book-intro {
             background-color: #f8f9fa;
             border-left: 4px solid var(--deep-gold);
-            padding: 14px 12px;
-            margin: 15px 0 25px 0;
+            padding: 12px;
+            margin: 12px 0 20px 0;
             border-radius: 6px;
             text-align: left;
         }
 
         .book-intro p {
             color: #444;
-            font-size: 0.88rem;
-            line-height: 1.55;
+            font-size: 0.84rem;
+            line-height: 1.5;
             margin: 0;
             font-style: italic;
         }
 
         input {
             width: 100%;
-            padding: 16px;
+            padding: 14px 16px;
             margin: 8px 0;
-            border: 2px solid #f0f0f0;
+            border: 2px solid #eee;
             border-radius: 10px;
             box-sizing: border-box;
-            font-size: 16px; 
+            font-size: 16px; /* Prevents auto-zoom on iOS Safari */
             background-color: #f9f9f9;
             transition: all 0.3s ease;
             outline: none;
@@ -87,7 +89,7 @@
 
         .login-btn {
             width: 100%;
-            padding: 18px;
+            padding: 16px;
             background-color: var(--deep-gold);
             color: var(--royal-blue);
             border: none;
@@ -95,15 +97,16 @@
             font-weight: 800;
             font-size: 1rem;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 12px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             transition: all 0.2s ease;
             box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+            -webkit-tap-highlight-color: transparent;
         }
 
         .login-btn:active {
-            transform: scale(0.96);
+            transform: scale(0.97);
             background-color: #b8860b;
         }
 
@@ -114,15 +117,15 @@
         }
 
         #message {
-            margin-top: 20px;
-            font-size: 0.9rem;
+            margin-top: 15px;
+            font-size: 0.88rem;
             font-weight: 600;
             color: #c0392b;
             min-height: 1.2rem;
         }
 
         .footer-brand {
-            margin-top: 30px;
+            margin-top: 24px;
             font-size: 0.75rem;
             color: #888;
             text-transform: uppercase;
@@ -134,7 +137,7 @@
 <body>
 
 <div class="login-card">
-    <img src="https://i.imgur.com/Dn3IbTH.jpeg" alt="Masomo Logo" style="width: 140px; margin-bottom: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.15);">
+    <img src="https://i.imgur.com/Dn3IbTH.jpeg" alt="Masomo Logo" style="width: 120px; margin-bottom: 15px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
     
     <h2>RISE AND FALL</h2>
     <p><strong>Battleground of Blessings & Envy</strong></p>
@@ -182,7 +185,6 @@
                 localStorage.setItem('userName', result.name);
                 window.location.href = "part1.html";
             } else {
-                // Displays specific error from server (e.g., Insufficient Credits)
                 msg.innerText = result.message || "Invalid credentials. Please try again.";
                 btn.disabled = false;
                 btn.innerText = "ACCESS BOOK";
